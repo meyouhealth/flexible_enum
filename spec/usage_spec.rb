@@ -172,4 +172,26 @@ describe "the usage of flexible_enum when specifying a namespace" do
       closed_element.value.should      == 1
     end
   end
+
+  it "should return a hash of possible elements" do
+    CashRegister.drawer_positions_by_sym[:opened].tap do |opened_element|
+      opened_element.name.should       == "opened"
+      opened_element.human_name.should == "Opened"
+      opened_element.value.should      == 0 
+    end
+    CashRegister.drawer_positions_by_sym[:closed].tap do |closed_element|
+      closed_element.name.should       == "closed"
+      closed_element.human_name.should == "Closed"
+      closed_element.value.should      == 1
+    end
+  end
+
+  it "should return the constant for a given symbol, string, or integer" do
+    CashRegister.status_const_for(:active).should == CashRegister::ACTIVE
+    CashRegister.status_const_for("active").should == CashRegister::ACTIVE
+    CashRegister.status_const_for("ACTIVE").should == CashRegister::ACTIVE
+    CashRegister.status_const_for(CashRegister::ACTIVE).should == CashRegister::ACTIVE
+    expect { CashRegister.status_const_for(:bad_symbol) }.to raise_error("Unknown enumeration element: bad_symbol")
+    CashRegister.drawer_position_const_for(:opened).should == CashRegister::DrawerPositions::OPENED
+  end
 end
