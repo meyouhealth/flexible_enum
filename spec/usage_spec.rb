@@ -186,12 +186,12 @@ describe "the usage of flexible_enum when specifying a namespace" do
     end
   end
 
-  it "should return the constant for a given symbol, string, or integer" do
-    CashRegister.status_const_for(:active).should == CashRegister::ACTIVE
-    CashRegister.status_const_for("active").should == CashRegister::ACTIVE
-    CashRegister.status_const_for("ACTIVE").should == CashRegister::ACTIVE
-    CashRegister.status_const_for(CashRegister::ACTIVE).should == CashRegister::ACTIVE
-    expect { CashRegister.status_const_for(:bad_symbol) }.to raise_error("Unknown enumeration element: bad_symbol")
-    CashRegister.drawer_position_const_for(:opened).should == CashRegister::DrawerPositions::OPENED
+  it "should return the value for a given symbol, string, or integer" do
+    CashRegister.status_value_for(:active).should == CashRegister::ACTIVE
+    CashRegister.status_value_for("active").should == CashRegister::ACTIVE
+    CashRegister.status_value_for("ACTIVE").should == CashRegister::ACTIVE
+    CashRegister.status_value_for(CashRegister::ACTIVE).should == CashRegister::ACTIVE
+    expect { CashRegister.status_value_for(:bad_symbol) }.to raise_error("Unknown enumeration element: bad_symbol")
+    CashRegister.drawer_position_value_for(:opened).should == CashRegister::DrawerPositions::OPENED
   end
 end

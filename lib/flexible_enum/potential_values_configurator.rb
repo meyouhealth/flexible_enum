@@ -14,7 +14,7 @@ module FlexibleEnum
           x
         end
 
-        define_singleton_method("#{attribute_name}_const_for") do |sym_string_or_const|
+        define_singleton_method("#{attribute_name}_value_for") do |sym_string_or_const|
           if [String, Symbol].include?(sym_string_or_const.class)
             element = send(:"#{attribute_name.to_s.pluralize}_by_sym")[:"#{sym_string_or_const.downcase}"]
             raise("Unknown enumeration element: #{sym_string_or_const}") if !element
