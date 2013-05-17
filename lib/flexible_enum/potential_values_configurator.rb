@@ -7,6 +7,19 @@ module FlexibleEnum
             map {|name,config| Element.new(self, attribute_name, name, config) }.
             sort {|a,b| a.value <=> b.value }
         end
+
+        define_singleton_method("#{attribute_name.to_s.pluralize}_by_sym") do
+          x = {}
+          elements.each { |name, config| x[name] = Element.new(self, attribute_name, name, config) }
+          x
+        end
+
+        define_singleton_method("#{attribute_name}_value_for") do |sym_string_or_const|
+          element = send(:"#{attribute_name.to_s.pluralize}_by_sym")[:"#{sym_string_or_const.to_s.downcase}"]
+          element ||= send(attribute_name.to_s.pluralize).select { |e| e.value == sym_string_or_const }.first
+          raise("Unknown enumeration element: #{sym_string_or_const}") if !element
+          element.value
+        end
       end
     end
 

@@ -16,6 +16,11 @@ class CashRegister
     opened 0, :setter => :open!
     closed 1, :setter => :close!
   end
+
+  flexible_enum :manufacturer do
+    honeywell "Honeywell"
+    sharp "Sharp"
+  end
 end
 
 class NotACashRegister
@@ -172,4 +177,30 @@ describe "the usage of flexible_enum when specifying a namespace" do
       closed_element.value.should      == 1
     end
   end
+
+  it "should return a hash of possible elements" do
+    CashRegister.drawer_positions_by_sym[:opened].tap do |opened_element|
+      opened_element.name.should       == "opened"
+      opened_element.human_name.should == "Opened"
+      opened_element.value.should      == 0 
+    end
+    CashRegister.drawer_positions_by_sym[:closed].tap do |closed_element|
+      closed_element.name.should       == "closed"
+      closed_element.human_name.should == "Closed"
+      closed_element.value.should      == 1
+    end
+  end
+
+  it "should return the value for a given symbol, string, or integer" do
+    CashRegister.status_value_for(:active).should == CashRegister::ACTIVE
+    CashRegister.status_value_for("active").should == CashRegister::ACTIVE
+    CashRegister.status_value_for("ACTIVE").should == CashRegister::ACTIVE
+    CashRegister.status_value_for(CashRegister::ACTIVE).should == CashRegister::ACTIVE
+    expect { CashRegister.status_value_for(:bad_symbol) }.to raise_error("Unknown enumeration element: bad_symbol")
+    expect { CashRegister.status_value_for("bad_string") }.to raise_error("Unknown enumeration element: bad_string")
+    expect { CashRegister.status_value_for(666) }.to raise_error("Unknown enumeration element: 666")
+    CashRegister.drawer_position_value_for(:opened).should == CashRegister::DrawerPositions::OPENED
+    CashRegister.manufacturer_value_for("honeywell").should == "Honeywell"
+  end
 end
+
