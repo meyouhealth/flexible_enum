@@ -16,6 +16,11 @@ class CashRegister
     opened 0, :setter => :open!
     closed 1, :setter => :close!
   end
+
+  flexible_enum :manufacturer do
+    honeywell "Honeywell"
+    sharp "Sharp"
+  end
 end
 
 class NotACashRegister
@@ -195,6 +200,7 @@ describe "the usage of flexible_enum when specifying a namespace" do
     expect { CashRegister.status_value_for("bad_string") }.to raise_error("Unknown enumeration element: bad_string")
     expect { CashRegister.status_value_for(666) }.to raise_error("Unknown enumeration element: 666")
     CashRegister.drawer_position_value_for(:opened).should == CashRegister::DrawerPositions::OPENED
+    CashRegister.manufacturer_value_for("honeywell").should == "Honeywell"
   end
 end
 
