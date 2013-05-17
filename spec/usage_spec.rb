@@ -192,6 +192,9 @@ describe "the usage of flexible_enum when specifying a namespace" do
     CashRegister.status_value_for("ACTIVE").should == CashRegister::ACTIVE
     CashRegister.status_value_for(CashRegister::ACTIVE).should == CashRegister::ACTIVE
     expect { CashRegister.status_value_for(:bad_symbol) }.to raise_error("Unknown enumeration element: bad_symbol")
+    expect { CashRegister.status_value_for("bad_string") }.to raise_error("Unknown enumeration element: bad_string")
+    expect { CashRegister.status_value_for(666) }.to raise_error("Unknown enumeration element: 666")
     CashRegister.drawer_position_value_for(:opened).should == CashRegister::DrawerPositions::OPENED
   end
 end
+
