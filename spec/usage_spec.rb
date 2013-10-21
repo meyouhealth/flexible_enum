@@ -3,13 +3,15 @@ require 'spec_helper'
 class CashRegister
   include FlexibleEnum::Mixin
 
-  attr_accessor :status, :drawer_position
+  attr_accessor :status, :drawer_position, :fill_at, :emptied_at, :emptied_on
 
   flexible_enum :status do
     unknown    0,  :inverse => :known
     not_active 10, :my_custom_option => "Nothing to see here"
     active     20
     alarm      21, :human_name => "Help I'm being robbed!"
+    fill       22
+    empty      23, :timestamp_attribute => :emptied
   end
 
   flexible_enum :drawer_position, :namespace => "DrawerPositions" do
@@ -20,6 +22,10 @@ class CashRegister
   flexible_enum :manufacturer do
     honeywell "Honeywell"
     sharp "Sharp"
+  end
+
+  class << self
+    alias_method :attribute_method?, :method_defined?
   end
 end
 
@@ -34,6 +40,10 @@ class NotACashRegister
 end
 
 describe "the usage of flexible_enum without a namespace" do
+  let(:now) { Time.new(2013, 1, 1) }
+
+  before { Time.stub(:now).and_return(now) }
+
   it "should set constants for each element" do
     CashRegister::UNKNOWN.should    == 0
     CashRegister::NOT_ACTIVE.should == 10
@@ -87,10 +97,12 @@ describe "the usage of flexible_enum without a namespace" do
   end
 
   it "should have bang setters" do
-    CashRegister.new.tap {|r| r.should_receive(:update_attribute).with(:status, 0)  }.unknown!
-    CashRegister.new.tap {|r| r.should_receive(:update_attribute).with(:status, 10) }.not_active!
-    CashRegister.new.tap {|r| r.should_receive(:update_attribute).with(:status, 20) }.active!
-    CashRegister.new.tap {|r| r.should_receive(:update_attribute).with(:status, 21) }.alarm!
+    CashRegister.new.tap {|r| r.should_receive(:update_attributes).with(:status => 0)  }.unknown!
+    CashRegister.new.tap {|r| r.should_receive(:update_attributes).with(:status => 10) }.not_active!
+    CashRegister.new.tap {|r| r.should_receive(:update_attributes).with(:status => 20) }.active!
+    CashRegister.new.tap {|r| r.should_receive(:update_attributes).with(:status => 21) }.alarm!
+    CashRegister.new.tap {|r| r.should_receive(:update_attributes).with(:status => 22, fill_at: now) }.fill!
+    CashRegister.new.tap {|r| r.should_receive(:update_attributes).with(:status => 23, emptied_at: now, emptied_on: now.to_date) }.empty!
   end
 
   it "should build scopes for each element" do
@@ -129,7 +141,7 @@ describe "the usage of flexible_enum without a namespace" do
 
   it "should store and provide access to any custom options that are passed in during creation" do
     CashRegister.statuses[1][:my_custom_option].should == "Nothing to see here"
-  end 
+  end
 end
 
 describe "the usage of flexible_enum when specifying a namespace" do
@@ -154,8 +166,8 @@ describe "the usage of flexible_enum when specifying a namespace" do
   end
 
   it "should have bang setters" do
-    CashRegister.new.tap {|r| r.should_receive(:update_attribute).with(:drawer_position, 0) }.open!
-    CashRegister.new.tap {|r| r.should_receive(:update_attribute).with(:drawer_position, 1) }.close!
+    CashRegister.new.tap {|r| r.should_receive(:update_attributes).with(:drawer_position => 0) }.open!
+    CashRegister.new.tap {|r| r.should_receive(:update_attributes).with(:drawer_position => 1) }.close!
   end
 
   it "should build scopes with prefixed names for each element" do
@@ -182,7 +194,7 @@ describe "the usage of flexible_enum when specifying a namespace" do
     CashRegister.drawer_positions_by_sym[:opened].tap do |opened_element|
       opened_element.name.should       == "opened"
       opened_element.human_name.should == "Opened"
-      opened_element.value.should      == 0 
+      opened_element.value.should      == 0
     end
     CashRegister.drawer_positions_by_sym[:closed].tap do |closed_element|
       closed_element.name.should       == "closed"
