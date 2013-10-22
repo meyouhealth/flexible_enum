@@ -1,5 +1,5 @@
 module FlexibleEnum
-  class BangMethodConfigurator < AbstractConfigurator
+  class SetterMethodConfigurator < AbstractConfigurator
     def apply
       attribute_name = self.attribute_name
 

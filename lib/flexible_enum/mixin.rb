@@ -26,7 +26,7 @@ module FlexibleEnum
         configurators = [ConstantConfigurator,
                          HumanizedConfigurator,
                          QuestionMethodConfigurator,
-                         BangMethodConfigurator,
+                         SetterMethodConfigurator,
                          ScopeConfigurator,
                          PotentialValuesConfigurator]
         configurators.each do |configurator|
