@@ -71,7 +71,17 @@ The name of the setter method can be changed using option configuration paramete
 
 ### Timestamps
 
-If the target class defines a date and/or time attribute corresponding to the attribute it will be updated with the current date/time when using setter methods. For example, if User above had a column named `status_at` it would be set to the current time. `status_on` would be set to the current date. The existance of columns is checked using ActiveRecord's `attribute_method?` method.
+If the target class defines a date and/or time attribute corresponding to the flexible enum option being set it will be updated with the current date/time when using setter methods. For example, Post#show! above will set `visibility = 1`, `visibile_at = Time.now.utc`, and `visible_on = Time.now.utc.to_date` if those columns exist. The existance of columns is checked using ActiveRecord's `attribute_method?` method.
+
+Use the `:timestamp_attribute` option configuration parameter to change the columns used:
+
+    flexible_enum :status do
+      unknown  0
+      active   1, timestamp_attribute: :actived
+      disabled 2, timestamp_attribute: :disabled
+    end
+
+Calling `active!` will now attempt to set `actived_at` and `actived_on`.
 
 ## Predicate Methods
 

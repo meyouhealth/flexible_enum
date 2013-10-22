@@ -34,10 +34,14 @@ describe "setter methods" do
       expect(updates).to eq([{status: 20}, {drawer_position: 1}])
     end
 
-    it "updates matching timestamp columns with the current date and time" do
+    it "updates default timestamp columns with the current date and time" do
       register.fill!
+      expect(updates).to eq([{ status: 22, fill_at: now.utc }])
+    end
+
+    it "updates custom timestamp columns with the current date and time" do
       register.empty!
-      expect(updates).to eq([{ status: 22, fill_at: now.utc }, { status: 23, emptied_on: now.utc.to_date, emptied_at: now.utc }])
+      expect(updates).to eq([{ status: 23, emptied_on: now.utc.to_date, emptied_at: now.utc }])
     end
   end
 end
