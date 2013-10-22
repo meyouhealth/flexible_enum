@@ -1,25 +1,25 @@
 module FlexibleEnum
-  class PotentialValuesConfigurator
-    def apply(class_for_attribute, attribute_name, module_for_elements, elements)
-      class_for_attribute.class_eval do
-        define_singleton_method(attribute_name.to_s.pluralize) do
-          elements.
-            map {|name,config| Element.new(self, attribute_name, name, config) }.
-            sort {|a,b| a.value <=> b.value }
-        end
+  class PotentialValuesConfigurator < AbstractConfigurator
+    def apply
+      configurator = self
 
-        define_singleton_method("#{attribute_name.to_s.pluralize}_by_sym") do
-          x = {}
-          elements.each { |name, config| x[name] = Element.new(self, attribute_name, name, config) }
-          x
-        end
+      add_class_method(attribute_name.to_s.pluralize) do
+        configurator.elements.
+          map {|name,config| Element.new(self, configurator.attribute_name, name, config) }.
+          sort {|a,b| a.value <=> b.value }
+      end
 
-        define_singleton_method("#{attribute_name}_value_for") do |sym_string_or_const|
-          element = send(:"#{attribute_name.to_s.pluralize}_by_sym")[:"#{sym_string_or_const.to_s.downcase}"]
-          element ||= send(attribute_name.to_s.pluralize).select { |e| e.value == sym_string_or_const }.first
-          raise("Unknown enumeration element: #{sym_string_or_const}") if !element
-          element.value
-        end
+      add_class_method("#{attribute_name.to_s.pluralize}_by_sym") do
+        x = {}
+        configurator.elements.each { |name, config| x[name] = Element.new(self, configurator.attribute_name, name, config) }
+        x
+      end
+
+      add_class_method("#{attribute_name}_value_for") do |sym_string_or_const|
+        element = send(:"#{configurator.attribute_name.to_s.pluralize}_by_sym")[:"#{sym_string_or_const.to_s.downcase}"]
+        element ||= send(configurator.attribute_name.to_s.pluralize).select { |e| e.value == sym_string_or_const }.first
+        raise("Unknown enumeration element: #{sym_string_or_const}") if !element
+        element.value
       end
     end
 
@@ -42,7 +42,7 @@ module FlexibleEnum
       def value
         @element_config[:value]
       end
-    
+
       def [](key)
         @element_config[key]
       end
