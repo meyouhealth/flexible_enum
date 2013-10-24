@@ -1,4 +1,5 @@
 require 'active_support/lazy_load_hooks'
+require 'active_support/core_ext/object'
 
 module FlexibleEnum
   autoload :Mixin, 'flexible_enum/mixin'
