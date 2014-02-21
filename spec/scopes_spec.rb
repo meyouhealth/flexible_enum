@@ -17,4 +17,11 @@ describe "scopes" do
     expect(CashRegister.drawer_position_opened).to contain_exactly(opened)
     expect(CashRegister.drawer_position_closed).to contain_exactly(closed)
   end
+
+  it "builds scopes that aren't affected by default scopes" do
+    WithDefaultScope.new.tap(&:active!)
+    passive = WithDefaultScope.new.tap(&:passive!)
+
+    expect(WithDefaultScope.passive).to contain_exactly(passive)
+  end
 end
