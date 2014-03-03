@@ -24,7 +24,7 @@ module FlexibleEnum
 
         # Configure the target object for the given attribute
         configurators = [ConstantConfigurator,
-                         HumanizedConfigurator,
+                         NameConfigurator,
                          QuestionMethodConfigurator,
                          SetterMethodConfigurator,
                          ScopeConfigurator,

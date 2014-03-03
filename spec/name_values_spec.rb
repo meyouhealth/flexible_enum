@@ -1,6 +1,14 @@
 require 'spec_helper'
 
-describe "humanized values" do
+describe "name values" do
+  it "retrieves the name for the current value" do
+    register = CashRegister.new
+    register.status = CashRegister::UNKNOWN
+    expect(register.status_name).to eq("unknown")
+    register.status = CashRegister::NOT_ACTIVE
+    expect(register.status_name).to eq("not_active")
+  end
+
   it "retrieves the human name of the current value" do
     register = CashRegister.new
     register.status = CashRegister::UNKNOWN
