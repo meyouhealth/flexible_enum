@@ -119,6 +119,13 @@ Humanized versions of attributes are available. This is convenient for displayin
     Car.human_fuel_type(0) # => "Gasoline"
     Car.fuel_types.collect(&:human_name) # => ["Gasoline", "Diesel", "Electric"]
 
+## Name Method
+
+The name of the attribute value is available. This allows you to grab the stringified version of the name of the value.
+
+    c = Car.new(fuel_type: Car::CARBON_EMITTER)
+    c.fuel_type_name # => "carbon_emitter"
+
 ## Namespaced Attributes
 
 FlexibleEnum attributes may be namespaced. Adding the namespace option to `flexible_enum` results in constants being defined in a new module.
