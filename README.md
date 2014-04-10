@@ -174,7 +174,7 @@ Configuration parameters passed to attribute options are saved even if they are 
       end
 
       def process
-        event_types[event_type][:processor_class].new(self).process
+        class.event_types[event_type][:processor_class].new(self).process
       end
     end
 
@@ -182,14 +182,14 @@ Configuration parameters passed to attribute options are saved even if they are 
 
 You may reflect on available options and their configuration parameters:
 
-    e = EmailEvent.new
-    e.event_types.collect(&:name)       # => ["bounce", "dropped", "opened", "delivered"]
-    e.event_types.collect(&:human_name) # => ["Bounce", "Dropped", "Opened", "Delivered"]
-    e.event_types.collect(&:value)      # => [1, 2, 3, 4]
+    ary = EmailEvent.event_types
+    ary.collect(&:name)       # => ["bounce", "dropped", "opened", "delivered"]
+    ary.collect(&:human_name) # => ["Bounce", "Dropped", "Opened", "Delivered"]
+    ary.collect(&:value)      # => [1, 2, 3, 4]
 
 This works particularly well with ActionView:
 
-    options_from_collection_for_select(e.event_types, "value", "human_name")
+    options_from_collection_for_select(EmailEvent.event_types, "value", "human_name")
 
 ## Overriding Methods
 
