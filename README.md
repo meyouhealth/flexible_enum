@@ -178,9 +178,9 @@ Configuration parameters passed to attribute options are saved even if they are 
       end
     end
 
-## Option Reflection
+## Option Introspection
 
-You may reflect on available options and their configuration parameters:
+You may introspect on available options and their configuration parameters:
 
     ary = EmailEvent.event_types
     ary.collect(&:name)       # => ["bounce", "dropped", "opened", "delivered"]
@@ -190,6 +190,25 @@ You may reflect on available options and their configuration parameters:
 This works particularly well with ActionView:
 
     options_from_collection_for_select(EmailEvent.event_types, "value", "human_name")
+
+## Enum Introspection
+
+You may retrieve a list of all defined `flexible_enum`s on a particular class:
+
+    class Car < ActiveRecord::Base
+      flexible_enum :status do
+        new  1
+        used 2
+      end
+
+      flexible_enum :car_type do
+        gas      1
+        hybrid   2
+        electric 3
+      end
+    end
+
+    Car.flexible_enums # => { status: Car.statuses, car_type: Car.car_types }
 
 ## Overriding Methods
 
