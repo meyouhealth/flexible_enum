@@ -19,12 +19,20 @@ module FlexibleEnum
     end
 
     def name_for(value)
-      element_info(value).first.to_s
+      if value
+        element_info(value).first.to_s
+      else
+        nil
+      end
     end
 
     def human_name_for(value)
-      element_name, element_config = element_info(value)
-      element_config[:human_name] || element_name.to_s.humanize
+      if value
+        element_name, element_config = element_info(value)
+        element_config[:human_name] || element_name.to_s.humanize
+      else
+        nil
+      end
     end
 
     private

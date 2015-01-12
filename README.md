@@ -119,12 +119,22 @@ Humanized versions of attributes are available. This is convenient for displayin
     Car.human_fuel_type(0) # => "Gasoline"
     Car.fuel_types.collect(&:human_name) # => ["Gasoline", "Diesel", "Electric"]
 
+If the flexible enum value is `nil`, the humanized name will also be `nil`:
+
+    c = Car.new(fuel_type: nil)
+    c.human_fuel_type # => nil
+
 ## Name Method
 
 The name of the attribute value is available. This allows you to grab the stringified version of the name of the value.
 
     c = Car.new(fuel_type: Car::CARBON_EMITTER)
     c.fuel_type_name # => "carbon_emitter"
+
+If the flexible enum value is `nil`, the name will also be `nil`:
+
+    c = Car.new(fuel_type: nil)
+    c.fuel_type_name # => nil
 
 ## Namespaced Attributes
 

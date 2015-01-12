@@ -7,6 +7,8 @@ describe "name values" do
     expect(register.status_name).to eq("unknown")
     register.status = CashRegister::NOT_ACTIVE
     expect(register.status_name).to eq("not_active")
+    register.status = nil
+    expect(register.status_name).to be_nil
   end
 
   it "retrieves the human name of the current value" do
@@ -15,6 +17,8 @@ describe "name values" do
     expect(register.human_status).to eq("Unknown")
     register.status = CashRegister::NOT_ACTIVE
     expect(register.human_status).to eq("Not active")
+    register.status = nil
+    expect(register.human_status).to be_nil
   end
 
   it "retrieves human names for available options" do
