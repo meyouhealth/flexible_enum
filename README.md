@@ -98,7 +98,7 @@ Inverse predicate methods can be added by setting the :inverse configuration par
       flexible_enum :fuel_type do
         gasoline 0
         diesel   1
-        electric 2, inverse: :carbon_emitter?
+        electric 2, inverse: :carbon_emitter
       end
     end
 
