@@ -160,16 +160,14 @@ FlexibleEnum attributes may be namespaced. Adding the namespace option to `flexi
 
 FlexibleEnum adds ActiveRecord scopes for each attribute option:
 
-    u = User.new
-    u.active   # => User.where(status: 0)
-    u.disabled # => User.where(status: 1)
-    u.pending  # => User.where(status: 2)
+    User.active   # => User.where(status: 0)
+    User.disabled # => User.where(status: 1)
+    User.pending  # => User.where(status: 2)
 
 When an attribute is namespaced a prefix is added to scope names. The prefix is the singularized namespace name (using Active Support):
 
-    r = CashRegister.new
-    r.drawer_position_opened # => CashRegister.where(drawer_position: 0)
-    r.drawer_position_closed # => CashRegister.where(drawer_position: 1)
+    CashRegister.drawer_position_opened # => CashRegister.where(drawer_position: 0)
+    CashRegister.drawer_position_closed # => CashRegister.where(drawer_position: 1)
 
 ## Custom Options
 
