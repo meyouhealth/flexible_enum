@@ -35,8 +35,8 @@ describe "setter methods" do
 
     it "updates default timestamp columns with the current date and time" do
       register.fill!
-      expect(register).to be_fill
-      expect(register.fill_at).to eq(now)
+      expect(register).to be_full
+      expect(register.full_at).to eq(now)
     end
 
     it "updates custom timestamp columns with the current date and time" do
