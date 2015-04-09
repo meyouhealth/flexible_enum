@@ -1,6 +1,6 @@
 # FlexibleEnum
 
-Give Ruby enum-like powers. Use with care.
+Give Ruby enum-like powers.
 
 ## Installation
 
