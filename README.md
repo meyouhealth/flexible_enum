@@ -252,3 +252,9 @@ You may override any method defined on the target class by FlexibleEnum. In vers
 4. Commit your changes (`git commit -am 'Add some feature'`)
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create new Pull Request
+
+## About MeYou Health
+
+![http://meyouhealth.com/](https://avatars3.githubusercontent.com/u/249181?v=3&s=200)
+
+FlexibleEnum is maintained by MeYou Health, LLC.
