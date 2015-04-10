@@ -23,25 +23,26 @@ describe "setter methods" do
     let!(:now) { Time.now }
     let(:updates) { [] }
 
-    before do
-      Time.stub(:now).and_return(now)
-      register.stub(:update_attributes) { |attributes| updates << attributes }
-    end
+    before { allow(Time).to receive(:now).and_return(now) }
 
     it "immediately dispatches a validation-free update" do
       register.active!
       register.close!
-      expect(updates).to eq([{status: 20}, {drawer_position: 1}])
+
+      expect(register).to be_active
+      expect(register).to be_closed
     end
 
     it "updates default timestamp columns with the current date and time" do
       register.fill!
-      expect(updates).to eq([{ status: 22, fill_at: now.utc }])
+      expect(register).to be_full
+      expect(register.full_at).to eq(now)
     end
 
     it "updates custom timestamp columns with the current date and time" do
       register.empty!
-      expect(updates).to eq([{ status: 23, emptied_on: now.utc.to_date, emptied_at: now.utc }])
+      expect(register).to be_empty
+      expect(register.emptied_at).to eq(now)
     end
   end
 end
