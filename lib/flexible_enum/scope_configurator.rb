@@ -5,7 +5,7 @@ module FlexibleEnum
 
       elements.each do |element_name, element_config|
         add_class_method(scope_name(element_name)) do
-          where(configurator.attribute_name => element_config[:value])
+          unscope(:where => configurator.attribute_name).where(configurator.attribute_name => element_config[:value])
         end
       end
     end
