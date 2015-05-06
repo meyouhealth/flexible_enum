@@ -286,7 +286,7 @@ end
 
 ## Contributing
 
-Please see [CONTRIBUTING.md].
+Please see [CONTRIBUTING.md](https://github.com/meyouhealth/flexible_enum/blob/master/CONTRIBUTING.md).
 
 ## About MeYou Health
 
