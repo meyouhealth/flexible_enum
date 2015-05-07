@@ -6,7 +6,7 @@ Give Ruby enum-like powers.
 
 Add this line to your application's Gemfile:
 
-    gem "flexible_enum",     git: 'git@github.com:meyouhealth/flexible_enum.git'
+    gem "flexible_enum"
 
 And then execute:
 
