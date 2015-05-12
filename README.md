@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/meyouhealth/flexible_enum.svg?branch=master)](https://travis-ci.org/meyouhealth/flexible_enum)
+
 # FlexibleEnum
 
 Give Ruby enum-like powers.
