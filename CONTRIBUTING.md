@@ -12,6 +12,8 @@ To contribute to FlexibleEnum:
 4. Commit your changes (`git commit -am 'Add some feature'`)
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create new Pull Request
+7. Commit a new entry at the top of [CHANGELOG.md](CHANGELOG.md) with a brief
+   description of your changes, the PR number, and your name.
 
 Want more detail on these steps? [Learn more about forking git
 repositories](https://guides.github.com/activities/forking/).
