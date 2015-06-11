@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/meyouhealth/flexible_enum.svg?branch=master)](https://travis-ci.org/meyouhealth/flexible_enum)
+[![Code Climate](https://codeclimate.com/github/meyouhealth/flexible_enum/badges/gpa.svg)](https://codeclimate.com/github/meyouhealth/flexible_enum)
 
 # FlexibleEnum
 
