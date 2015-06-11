@@ -1,6 +1,13 @@
 require 'spec_helper'
 
-describe "name values" do
+describe "identity values" do
+  it "retrieves the details for the current value" do
+    register = CashRegister.new
+    register.status = CashRegister::NOT_ACTIVE
+
+    expect(register.status_details).to eq(my_custom_option: "Nothing to see here", value: 10)
+  end
+
   it "retrieves the name for the current value" do
     register = CashRegister.new
     register.status = CashRegister::UNKNOWN

@@ -1,7 +1,12 @@
 module FlexibleEnum
-  class NameConfigurator < AbstractConfigurator
+  class IdentityConfigurator < AbstractConfigurator
     def apply
       configurator = self
+
+      add_instance_method("#{attribute_name}_details") do
+        value = send(configurator.attribute_name)
+        configurator.details_for(value)
+      end
 
       add_instance_method("#{attribute_name}_name") do
         value = send(configurator.attribute_name)
@@ -21,6 +26,14 @@ module FlexibleEnum
     def name_for(value)
       if value
         element_info(value).first.to_s
+      else
+        nil
+      end
+    end
+
+    def details_for(value)
+      if value
+        element_info(value).try(:last)
       else
         nil
       end

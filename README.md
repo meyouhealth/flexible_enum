@@ -203,7 +203,7 @@ CashRegister.drawer_position_closed # => CashRegister.where(drawer_position: 1)
 
 ## Custom Options
 
-Configuration parameters passed to attribute options are saved even if they are unknown. Getting at custom configuration parameters is a little clumsy at the moment but this can still be useful in some cases:
+Configuration parameters passed to attribute options are saved even if they are unknown.
 
 ```ruby
 class EmailEvent < ActiveRecord::Base
@@ -213,11 +213,13 @@ class EmailEvent < ActiveRecord::Base
     opened    3, processor_class: EmailOpenedProcessor
     delivered 4, processor_class: DeliveryProcessor
   end
-
-  def process
-    class.event_types[event_type][:processor_class].new(self).process
-  end
 end
+```
+
+Custom configuration parameters are available as an instance method on the object as well.
+```
+e = EmailEvent.new(event_type: 1)
+e.event_type_details # => { processor_class: RejectedProcessor, value: 1 }
 ```
 
 ## Option Introspection

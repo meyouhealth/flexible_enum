@@ -6,7 +6,7 @@ module FlexibleEnum
   autoload :Configuration, 'flexible_enum/configuration'
   autoload :AbstractConfigurator, 'flexible_enum/abstract_configurator'
   autoload :ConstantConfigurator, 'flexible_enum/constant_configurator'
-  autoload :NameConfigurator, 'flexible_enum/name_configurator'
+  autoload :IdentityConfigurator, 'flexible_enum/identity_configurator'
   autoload :QuestionMethodConfigurator, 'flexible_enum/question_method_configurator'
   autoload :SetterMethodConfigurator, 'flexible_enum/setter_method_configurator'
   autoload :ScopeConfigurator, 'flexible_enum/scope_configurator'
