@@ -46,6 +46,10 @@ class CashRegister < ActiveRecord::Base
     honeywell "HON"
     sharp "SHCAY"
   end
+
+  attr_accessor :include_validations, :required_attribute
+
+  validates_presence_of :required_attribute, if: -> { include_validations }
 end
 
 class WithDefaultScope < ActiveRecord::Base
