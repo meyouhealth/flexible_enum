@@ -293,6 +293,19 @@ end
 
 Please see [CONTRIBUTING.md](https://github.com/meyouhealth/flexible_enum/blob/master/CONTRIBUTING.md).
 
+## Releasing
+
+* On master in a commit named `Version x.y.z` update [version.rb](lib/flexible_enum/version.rb) and [CHANGELOG.md](CHANGELOG.md) with the new version.
+
+* Run `rake release` to build and release to Rubygems.
+
+* Run `git push origin master --tags` to push master and the new tag (created automatically in previous step) to Github.
+
+* Create a Github release including the new change log entries in the description.
+
+* Thank contributors via Twitter.
+
+
 ## About MeYou Health
 
 ![http://meyouhealth.com/](https://avatars3.githubusercontent.com/u/249181?v=3&s=200)
