@@ -60,9 +60,9 @@ describe "setter methods" do
 
       specify { expect(register).to_not be_valid }
 
-      it "does not persist any attribute changes" do
-        register.empty!
-        register.close!
+      it "raises and does not persist any changes" do
+        expect { register.empty! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Required attribute can't be blank")
+        expect { register.close! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Required attribute can't be blank")
 
         expect(register).to be_empty
         expect(register).to be_closed

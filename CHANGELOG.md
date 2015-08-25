@@ -1,7 +1,7 @@
 Current release (in development)
 --------------------------------
 
-* ...
+* Enum setter methods raise exceptions in accordance with Rails conventions for bang (`!`) methods. (#27, @aprescott)
 
 0.3.0
 -----
