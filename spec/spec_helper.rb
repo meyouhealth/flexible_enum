@@ -21,10 +21,6 @@ ActiveRecord::Schema.define do
     t.string   "manufacturer"
     t.integer  "drawer_position"
   end
-
-  create_table "with_default_scopes" do |t|
-    t.integer "status"
-  end
 end
 
 class CashRegister < ActiveRecord::Base
@@ -46,13 +42,4 @@ class CashRegister < ActiveRecord::Base
     honeywell "HON"
     sharp "SHCAY"
   end
-end
-
-class WithDefaultScope < ActiveRecord::Base
-  flexible_enum :status do
-    active  0
-    passive 1
-  end
-
-  default_scope { where(status: ACTIVE) }
 end
