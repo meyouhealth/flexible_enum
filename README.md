@@ -202,6 +202,33 @@ CashRegister.drawer_position_opened # => CashRegister.where(drawer_position: 0)
 CashRegister.drawer_position_closed # => CashRegister.where(drawer_position: 1)
 ```
 
+### Note about default scopes
+
+Be careful when using default scopes on FlexibleEnum columns. Since FlexibleEnum provides scopes for enum values, setting a `default_scope` on a FlexibleEnum column will result in conflicts. For example, given this model:
+
+```ruby
+class User < ActiveRecord::Base
+  flexible_enum :status do
+    active 1
+    inactive 2
+  end
+
+  default_scope -> { where(status: ACTIVE) }
+end
+```
+
+Attempts to use the `User.inactive` scope that FlexibleEnum provides will result in this SQL:
+
+```sql
+SELECT * FROM users WHERE users.status = 1 AND users.status = 2
+```
+
+You will need to `unscope` the `default_scope` before using a FlexibleEnum-provided scope (as you would have to do for normal Rails scopes that happen to contradict each other).
+
+```ruby
+User.unscope(where: :status).inactive
+```
+
 ## Custom Options
 
 Configuration parameters passed to attribute options are saved even if they are unknown.
