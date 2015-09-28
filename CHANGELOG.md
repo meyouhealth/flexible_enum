@@ -1,11 +1,14 @@
 Current release (in development)
 --------------------------------
 
+* ...
+
+0.4.0
+-----
+
 *   Revert #4. Scopes provided by flexible_enum no longer attempt to overwrite pre-existing `WHERE` conditions on the enum column. #30
 
     *Alex Robbin*
-
-* ...
 
 0.3.0
 -----
