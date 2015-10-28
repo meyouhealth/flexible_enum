@@ -7,6 +7,12 @@ module FlexibleEnum
         add_class_method(scope_name(element_name)) do
           where(configurator.attribute_name => element_config[:value])
         end
+
+        if element_config[:inverse]
+          add_class_method(scope_name(element_config[:inverse])) do
+            where.not(configurator.attribute_name => element_config[:value])
+          end
+        end
       end
     end
 
