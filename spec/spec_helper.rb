@@ -34,7 +34,7 @@ class CashRegister < ActiveRecord::Base
   end
 
   flexible_enum :drawer_position, :namespace => "DrawerPositions" do
-    opened 0, setter: :open!
+    opened 0, setter: :open!, inverse: :not_open
     closed 1, setter: :close!
   end
 

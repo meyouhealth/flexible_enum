@@ -202,6 +202,24 @@ CashRegister.drawer_position_opened # => CashRegister.where(drawer_position: 0)
 CashRegister.drawer_position_closed # => CashRegister.where(drawer_position: 1)
 ```
 
+Inverse scopes can be added by setting the :inverse configuration parameter:
+
+```ruby
+class Car < ActiveRecord::Base
+  flexible_enum :fuel_type do
+    gasoline 0
+    diesel   1
+    electric 2, inverse: :carbon_emitter
+  end
+end
+
+gas = Car.create(fuel_type: Car::GASOLINE)
+diesel = Car.create(fuel_type: Car::DIESEL)
+electric = Car.create(fuel_type: Car::ELECTRIC)
+
+Car.carbon_emitter # => [gasoline, diesel]
+```
+
 ### Note about default scopes
 
 Be careful when using default scopes on FlexibleEnum columns. Since FlexibleEnum provides scopes for enum values, setting a `default_scope` on a FlexibleEnum column will result in conflicts. For example, given this model:

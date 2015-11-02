@@ -1,7 +1,7 @@
 Current release (in development)
 --------------------------------
 
-* ...
+* Add inverse scopes. (#32, @zfletch)
 
 0.4.0
 -----
