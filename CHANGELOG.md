@@ -1,7 +1,17 @@
 Current release (in development)
 --------------------------------
 
-* Add inverse scopes. (#32, @zfletch)
+* ...
+
+0.4.1
+-----
+
+*   Add support for Rails 5. #33
+
+    *Alex Robbin*
+*   Add inverse scopes. #32
+
+    *Zach Fletcher*
 
 0.4.0
 -----
