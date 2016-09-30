@@ -355,4 +355,4 @@ Please see [CONTRIBUTING.md](https://github.com/meyouhealth/flexible_enum/blob/m
 
 ![http://meyouhealth.com/](https://avatars3.githubusercontent.com/u/249181?v=3&s=200)
 
-FlexibleEnum is maintained by MeYou Health, LLC.
+FlexibleEnum is maintained by MYH, Inc.
