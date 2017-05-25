@@ -12,7 +12,7 @@ module FlexibleEnum
           time = Time.now.utc
           attributes["#{timestamp_attribute_name}_on".to_sym] = time.to_date if self.class.attribute_method?("#{timestamp_attribute_name}_on")
           attributes["#{timestamp_attribute_name}_at".to_sym] = time if self.class.attribute_method?("#{timestamp_attribute_name}_at")
-          update_attributes(attributes)
+          update_attributes!(attributes)
         end
       end
     end

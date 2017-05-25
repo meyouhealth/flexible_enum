@@ -3,6 +3,8 @@ require 'spec_helper'
 describe "setter methods" do
   subject(:register) { CashRegister.new }
 
+  before { register.save! }
+
   it "adds default bang methods for setting a new value" do
     expect(register.status).to be_nil
     register.active!
@@ -20,14 +22,16 @@ describe "setter methods" do
   end
 
   describe "updating database" do
-    let!(:now) { Time.now }
+    let!(:now) { Time.at(Time.now.to_i) }
     let(:updates) { [] }
 
     before { allow(Time).to receive(:now).and_return(now) }
 
-    it "immediately dispatches a validation-free update" do
+    it "performs an update on the relevant attribute" do
       register.active!
       register.close!
+
+      register.reload
 
       expect(register).to be_active
       expect(register).to be_closed
@@ -35,14 +39,40 @@ describe "setter methods" do
 
     it "updates default timestamp columns with the current date and time" do
       register.fill!
+
+      register.reload
+
       expect(register).to be_full
       expect(register.full_at).to eq(now)
     end
 
     it "updates custom timestamp columns with the current date and time" do
       register.empty!
+
+      register.reload
+
       expect(register).to be_empty
       expect(register.emptied_at).to eq(now)
+    end
+
+    context "when there are validation errors" do
+      before { register.include_validations = true }
+
+      specify { expect(register).to_not be_valid }
+
+      it "raises and does not persist any changes" do
+        expect { register.empty! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Required attribute can't be blank")
+        expect { register.close! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Required attribute can't be blank")
+
+        expect(register).to be_empty
+        expect(register).to be_closed
+
+        register.reload
+
+        expect(register).to_not be_empty
+        expect(register).to_not be_closed
+        expect(register.emptied_at).to be_nil
+      end
     end
   end
 end
