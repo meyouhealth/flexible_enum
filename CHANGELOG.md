@@ -1,7 +1,12 @@
 Current release (in development)
 --------------------------------
 
-* Enum setter methods raise exceptions in accordance with Rails conventions for bang (`!`) methods. (#27, @aprescott)
+0.4.2
+-----
+
+*   Enum setter methods raise exceptions in accordance with Rails conventions for bang (`!`) methods. #27
+
+    *Adam Prescott*
 
 0.4.1
 -----
@@ -9,6 +14,7 @@ Current release (in development)
 *   Add support for Rails 5. #33
 
     *Alex Robbin*
+
 *   Add inverse scopes. #32
 
     *Zach Fletcher*
