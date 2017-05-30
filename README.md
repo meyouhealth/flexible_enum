@@ -342,9 +342,7 @@ Please see [CONTRIBUTING.md](https://github.com/meyouhealth/flexible_enum/blob/m
 
 * On master in a commit named `Version x.y.z` update [version.rb](lib/flexible_enum/version.rb) and [CHANGELOG.md](CHANGELOG.md) with the new version.
 
-* Run `rake release` to build and release to Rubygems.
-
-* Run `git push origin master --tags` to push master and the new tag (created automatically in previous step) to Github.
+* Run `rake release` to build, tag the commit, push the tag, and release to Rubygems.
 
 * Create a Github release including the new change log entries in the description.
 
